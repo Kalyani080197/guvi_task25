@@ -1,0 +1,151 @@
+1. Write java script for following scenario:
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class DatePickerAutomation {
+    public static void main(String[] args) {
+        // Set the path of the chromedriver executable
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
+
+        // Create a new instance of the Chrome driver
+        WebDriver driver = new ChromeDriver();
+
+        try {
+            // Maximize the browser window
+            driver.manage().window().maximize();
+
+            // Navigate to the URL
+            driver.get("https://jqueryui.com/datepicker/");
+
+            // Switch to the iframe that contains the datepicker
+            driver.switchTo().frame(driver.findElement(By.className("demo-frame")));
+
+            // Click the datepicker input field to open the datepicker
+            WebElement datepicker = driver.findElement(By.id("datepicker"));
+            datepicker.click();
+
+            // Click the next month button
+            WebElement nextMonthButton = driver.findElement(By.xpath("//a[@title='Next']"));
+            nextMonthButton.click();
+
+            // Select the date "22" from the datepicker
+            WebElement dateToSelect = driver.findElement(By.xpath("//a[text()='22']"));
+            dateToSelect.click();
+
+            // Get the selected date from the input field
+            String selectedDate = datepicker.getAttribute("value");
+
+            // Print the selected date to the console
+            System.out.println("Selected date: " + selectedDate);
+
+        } finally {
+            // Close the browser window
+            driver.quit();
+        }
+    }
+}
+Make sure to replace "path/to/chromedriver" with the actual path to your chromedriver executable.
+
+Steps Explained:
+Set the path of the chromedriver executable: Ensure you have the correct path to the chromedriver on your system.
+Create an instance of the Chrome driver: This initializes a new Chrome browser window.
+Maximize the browser window: Ensures the window is maximized for better visibility and interaction.
+Navigate to the URL: Opens the specified URL in the browser.
+Switch to the iframe: The datepicker is inside an iframe, so we switch to it.
+Open the datepicker: Click the datepicker input field to open the calendar.
+Select the next month: Click the next month button to navigate to the next month.
+Select the date "22": Click the date "22" in the calendar.
+Retrieve the selected date: Get the value of the datepicker input field to confirm the selected date.
+Print the selected date: Output the selected date to the console.
+Close the browser: Quit the WebDriver instance and close the browser window.
+
+2. To Automate Signup and login process for https://guvi.in
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class GuviSignupLoginAutomation {
+    public static void main(String[] args) {
+        // Set the path of the chromedriver executable
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
+
+        // Create a new instance of the Chrome driver
+        WebDriver driver = new ChromeDriver();
+
+        try {
+            // Maximize the browser window
+            driver.manage().window().maximize();
+
+            // Navigate to the URL
+            driver.get("https://www.guvi.in/");
+
+            // Locate the Signup button and click on it
+            WebElement signupButton = driver.findElement(By.xpath("//a[contains(text(),'Sign Up')]"));
+            signupButton.click();
+
+            // Fill in the signup form with required details
+            driver.findElement(By.id("name")).sendKeys("Dummy Name");
+            driver.findElement(By.id("email")).sendKeys("dummyemail@example.com");
+            driver.findElement(By.id("password")).sendKeys("dummypassword");
+
+            // Click on the "Signup" button to submit the form
+            WebElement submitSignupButton = driver.findElement(By.xpath("//button[contains(text(),'Sign Up')]"));
+            submitSignupButton.click();
+
+            // Wait for the page to load and verify the registration
+            Thread.sleep(5000); // Add an appropriate wait
+            String signupTitle = driver.getTitle();
+            if (signupTitle.contains("Welcome")) {
+                System.out.println("User registered successfully");
+            } else {
+                System.out.println("User registration failed");
+            }
+
+            // Locate the Login button and click on it
+            WebElement loginButton = driver.findElement(By.xpath("//a[contains(text(),'Log In')]"));
+            loginButton.click();
+
+            // Fill in the login form with the email and password used during registration
+            driver.findElement(By.id("email")).sendKeys("dummyemail@example.com");
+            driver.findElement(By.id("password")).sendKeys("dummypassword");
+
+            // Click on the "Login" button to submit the form
+            WebElement submitLoginButton = driver.findElement(By.xpath("//button[contains(text(),'Log In')]"));
+            submitLoginButton.click();
+
+            // Wait for the page to load and verify the login
+            Thread.sleep(5000); // Add an appropriate wait
+            String loginTitle = driver.getTitle();
+            if (loginTitle.contains("Dashboard")) {
+                System.out.println("User logged in successfully");
+            } else {
+                System.out.println("User login failed");
+            }
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            // Close the browser
+            driver.quit();
+        }
+    }
+}
+Steps Explained:
+Set the path of the chromedriver executable: Ensure you have the correct path to the chromedriver on your system.
+Create an instance of the Chrome driver: This initializes a new Chrome browser window.
+Maximize the browser window: Ensures the window is maximized for better visibility and interaction.
+Navigate to the URL: Opens the specified URL in the browser.
+Locate the Signup button and click on it: Finds the Signup button and clicks it to open the signup form.
+Fill in the signup form with required details: Enters the dummy details in the signup form.
+Submit the signup form: Clicks the Signup button to submit the form.
+Verify the registration: Waits for the page to load and checks the title to verify successful registration.
+Locate the Login button and click on it: Finds the Login button and clicks it to open the login form.
+Fill in the login form: Enters the dummy email and password in the login form.
+Submit the login form: Clicks the Login button to submit the form.
+Verify the login: Waits for the page to load and checks the title to verify successful login.
+Close the browser: Quits the WebDriver instance and closes the browser window
